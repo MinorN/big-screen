@@ -37,6 +37,7 @@
       "box3 box3 box4 box5" 363fr / 366fr 361fr 811fr 747fr;
     grid-column-gap: px(28);
     grid-row-gap: px(28);
+
     > section {
       text-align: center;
     }
@@ -93,7 +94,7 @@
       grid-area: box5;
     }
 
-    .案发派出所管辖统计, .案件破获排名, .发案趋势分析,.案发时段分析 {
+    .案发派出所管辖统计, .案件破获排名, .发案趋势分析, .案发时段分析, .往年战果数对比 {
       height: px(315);
       display: flex;
       flex-direction: column;
@@ -116,11 +117,13 @@
       }
     }
 
-    .发案趋势分析,.案发时段分析{
+    .发案趋势分析, .案发时段分析 {
       height: px(361);
     }
+
     .案件破获排名 {
       height: px(423);
+
       .legend {
         display: flex;
         align-items: center;
@@ -147,7 +150,35 @@
       }
 
     }
+
+    .往年战果数对比 {
+      > table {
+        margin-top: px(30);
+        border-collapse: collapse;
+
+        th, td {
+          border: 1px solid #1a3571;
+        }
+
+        thead {
+          th {
+            height: px(70);
+            box-shadow: inset 0 0 px(60) 0 #1f3d85;
+          }
+        }
+
+        tbody {
+          td {
+            height: px(50);
+            width: px(84);
+            background: #1c2456;
+          }
+        }
+      }
+    }
+
   }
+
 
 
 }
