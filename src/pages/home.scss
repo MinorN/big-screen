@@ -50,6 +50,7 @@
       background: #0c1139;
 
       &::before {
+        pointer-events: none;
         content: '';
         position: absolute;
         left: 0;
@@ -88,13 +89,31 @@
 
     > .section4 {
       grid-area: box4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     > .section5 {
       grid-area: box5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      > .row1 {
+        height: px(317);
+      }
+
+      > .row2 {
+        height: px(317);
+      }
+
+      > .row3 {
+        height: px(455);
+      }
     }
 
-    .案发派出所管辖统计, .案件破获排名, .发案趋势分析, .案发时段分析, .往年战果数对比,.籍贯 {
+    .案发派出所管辖统计, .案件破获排名, .发案趋势分析, .案发时段分析, .往年战果数对比, .籍贯, .年龄段, .案发类型, .案发街道, .作案手段 {
       height: px(315);
       display: flex;
       flex-direction: column;
@@ -115,10 +134,19 @@
         flex: 1;
         width: 100%;
       }
+
+      .charts {
+        width: 100%;
+        flex: 1;
+        display: flex;
+      }
     }
 
     .发案趋势分析, .案发时段分析 {
       height: px(361);
+    }
+    .chart12 {
+      flex: 1;display: flex; flex-direction: column;
     }
 
     .案件破获排名 {
@@ -151,9 +179,10 @@
 
     }
 
-    .往年战果数对比 {
+    .往年战果数对比, .作案手段 {
       > table {
-        margin-top: px(30);
+        width: 100%; table-layout: fixed;
+        margin-top: px(25);
         border-collapse: collapse;
 
         th, td {
@@ -176,14 +205,141 @@
         }
       }
     }
-
-    .籍贯 {
-      height: px(753); background: transparent;
+    .作案手段 {
+      > table {
+        tbody {
+          td {
+            height: px(26);
+          }
+        }
+      }
     }
 
+    .籍贯 {
+      height: px(753);
+      background: transparent;
+
+      > .wrapper {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .chart {
+          flex: 1;
+        }
+
+        .legend {
+          position: absolute;
+          top: px(40);
+          left: px(20);
+          display: flex;
+          align-items: center;
+          font-size: px(22);
+          padding: px(20) px(10) px(20) 0;
+          border-radius: 0;
+
+          .icon {
+            margin: 0 px(10);
+            display: inline-block;
+            width: px(16);
+            height: px(16);
+            border-radius: 50%;
+            background: #1cecd9;
+          }
+        }
+
+        .notes {
+          position: absolute;
+          bottom: px(10);
+          right: px(10);
+        }
+      }
+
+      &-图2 {
+        width: px(290);
+        flex-shrink: 0;
+
+        .legend {
+          justify-content: flex-start;
+        }
+      }
+
+      &-图3 {
+        border: 1px solid #08397d;
+
+        h3 {
+          font-size: px(20);
+          color: #7ab6db;
+          margin-top: px(6);
+        }
+      }
+    }
+
+    .年龄段 {
+      display: flex;
+      flex-direction: column;
+      height: px(363);
+
+      > .charts {
+        padding: px(30);
+      }
+
+      &-图1, &-图2, &-图3 {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-图1, &-图2 {
+        .legend {
+          height: px(40);
+          display: flex;
+          align-items: center;
+          justify-content: center; flex-wrap: wrap; padding-right: px(10);
+          flex-wrap: wrap;
+
+          > span {
+            display: inline-block;
+            width: px(16);
+            height: px(10);
+            border-radius: px(2);
+            margin: 0 px(10);
+          }
+
+          .male {
+            background: #33a4fa;
+          }
+
+          .female {
+            background: #8d70f8;
+          }
+        }
+
+        .chart {
+          position: relative;
+          display: flex;
+
+          > .main {
+            flex: 1;
+          }
+
+          > .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #33a4fa;
+            font-size: px(40);
+            text-shadow: 0 0 px(20) #33a4fa;
+            font-weight: bold;
+          }
+        }
+      }
+    }
 
   }
-
 
 
 }
