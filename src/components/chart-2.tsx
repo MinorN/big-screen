@@ -4,7 +4,6 @@ import {px} from '../shared/px';
 import {baseEchartOption} from '../shared/base-echart-option';
 import {createEchartsOptions} from '../shared/create-echarts-options';
 
-
 export const Chart2 =()=>{
     const divRef = useRef(null);
     useEffect(() => {
