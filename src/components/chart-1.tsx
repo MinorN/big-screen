@@ -7,12 +7,45 @@ import {createEchartsOptions} from '../shared/create-echarts-options';
 
 export const Chart1 = () => {
     const divRef = useRef(null);
+    const myChart = useRef(null);
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //不含最大值，含最小值
+    }
+    const data = [
+        {name: '兰州新区', number: 10},
+        {name: '榆中区', number: 10},
+        {name: '皋兰区', number: 10},
+        {name: '永登区', number: 10},
+        {name: '红谷区', number: 10},
+        {name: '安宁区', number: 10},
+        {name: '西固区', number: 10},
+        {name: '七里河区', number: 10},
+        {name: '城关区', number: 10},
+    ];
     useEffect(() => {
-        let myChart = echarts.init(divRef.current);
+        setInterval(() => {
+            const newData = [
+                {name: '兰州新区', number: getRandomInt(0,10)},
+                {name: '榆中区', number: getRandomInt(0,10)},
+                {name: '皋兰区', number: getRandomInt(0,10)},
+                {name: '永登区', number: getRandomInt(0,10)},
+                {name: '红谷区', number: getRandomInt(0,10)},
+                {name: '安宁区', number: getRandomInt(0,10)},
+                {name: '西固区', number: getRandomInt(0,10)},
+                {name: '七里河区', number: getRandomInt(0,10)},
+                {name: '城关区', number: getRandomInt(0,10)},
+            ];
+            x(newData);
+        }, 1500);
+    }, []);
+
+    const x = (data) => {
         let option = {
             ...baseEchartOption,
             xAxis: {
-                data: ['兰州新区', '兰州新区', '兰州新区', '兰州新区', '兰州新区', '兰州新区', '兰州新区', '兰州新区', '兰州新区'],
+                data: data.map(item => item.name),
                 axisTick: {show: false},
                 axisLabel: {
                     fontSize: px(12),
@@ -39,16 +72,21 @@ export const Chart1 = () => {
             series: [
                 {
                     type: 'bar',
-                    data: [10, 20, 36, 41, 15, 26, 37, 18, 29]
+                    data: data.map(item => item.number)
                 }
             ]
         };
-        myChart.setOption(createEchartsOptions(option));
+        myChart.current.setOption(createEchartsOptions(option));
+    };
+
+    useEffect(() => {
+        myChart.current = echarts.init(divRef.current);
+        x(data);
     }, []);
     return (
         <div className="bordered 案发派出所管辖统计">
             <h2>案发派出所管辖统计</h2>
-            <div ref={divRef} className="chart"></div>
+            <div ref={divRef} className="chart"/>
         </div>
     );
 };

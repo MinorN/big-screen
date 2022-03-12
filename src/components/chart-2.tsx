@@ -6,10 +6,37 @@ import {createEchartsOptions} from '../shared/create-echarts-options';
 
 export const Chart2 =()=>{
     const divRef = useRef(null);
+    const myChart = useRef(null)
+    const data = [
+        {name: '城关区公安局', 2020: 2, 2021: 3},
+        {name: '七里河区公安局', 2020: 2, 2021: 3},
+        {name: '西固区公安局', 2020: 2, 2021: 3},
+        {name: '安宁区公安局', 2020: 2, 2021: 3},
+        {name: '红古区公安局', 2020: 2, 2021: 3},
+        {name: '永登县公安局', 2020: 2, 2021: 3},
+        {name: '皋兰县公安局', 2020: 2, 2021: 3},
+        {name: '榆中县公安局', 2020: 2, 2021: 3},
+        {name: '新区公安局', 2020: 2, 2021: 3},
+    ]
     useEffect(() => {
-        let myChart = echarts.init(divRef.current);
+        setInterval(()=>{
+            const newData=[
+                {name: '城关区公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '七里河区公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '西固区公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '安宁区公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '红古区公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '永登县公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '皋兰县公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '榆中县公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+                {name: '新区公安局', 2020: Math.random() * 10, 2021: Math.random() * 10},
+            ];
+            x(newData)
+        },1500)
+    },[]);
+    const x = (data)=>{
         let option = {
-           ...baseEchartOption,
+            ...baseEchartOption,
             grid: {
                 x: px(100),
                 y: px(40),
@@ -25,17 +52,7 @@ export const Chart2 =()=>{
             yAxis: {
                 type: 'category',
                 axisTick:{show:false},
-                data: [
-                    '城关区公安局',
-                    '七里河区公安局',
-                    '西固区公安局',
-                    '安宁区公安局',
-                    '红古区公安局',
-                    '永登县公安局',
-                    '皋兰区公安局',
-                    '榆中县公安局',
-                    '新区公安局',
-                ],
+                data: data.map(item=>item.name),
                 axisLabel: {
                     formatter(val) {
                         return val.replace('公安局','\n公安局')
@@ -44,9 +61,9 @@ export const Chart2 =()=>{
             },
             series: [
                 {
-                    name: '破案排名1',
+                    name: '2020年',
                     type: 'bar',
-                    data: [1, 2, 3, 4, 5, 6,7,8,9],
+                    data: data.map(item=>item[2020]),
                     itemStyle:{
                         color:new echarts.graphic.LinearGradient(0,0,1,0,[{
                             offset:0,
@@ -58,9 +75,9 @@ export const Chart2 =()=>{
                     }
                 },
                 {
-                    name: '破案排名',
+                    name: '2021年',
                     type: 'bar',
-                    data: [1, 2, 3, 4, 5, 6,7,8,9],
+                    data: data.map(item=>item[2021]),
                     itemStyle:{
                         color:new echarts.graphic.LinearGradient(0,0,1,0,[{
                             offset:0,
@@ -73,15 +90,19 @@ export const Chart2 =()=>{
                 }
             ]
         };
-        myChart.setOption(createEchartsOptions(option));
-    }, []);
+        myChart.current.setOption(createEchartsOptions(option));
+    }
+    useEffect(() => {
+        myChart.current = echarts.init(divRef.current);
+        x(data)
+    },[]);
     return(
         <div className="bordered 案件破获排名">
             <h2>案件破获排名</h2>
             <div ref={divRef} className="chart"/>
                 <div className="legend">
-                    <span className="first"/>破案排名1
-                    <span className="second"/>破案排名2
+                    <span className="first"/>2020
+                    <span className="second"/>2021
                 </div>
         </div>
     )

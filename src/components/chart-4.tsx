@@ -2,13 +2,34 @@ import React, {useEffect} from 'react';
 import {useRef} from 'react';
 import {px} from '../shared/px';
 import {createEchartsOptions} from '../shared/create-echarts-options';
-import * as echarts from 'echarts'
+import * as echarts from 'echarts';
 
-export const Chart4 =()=>{
+export const Chart4 = () => {
     const divRef = useRef(null);
+    const myChart = useRef(null);
+    const data = [
+        0.15, 0.13, 0.11,
+        0.13, 0.14, 0.15,
+        0.16, 0.18, 0.21,
+        0.19, 0.17, 0.16,
+        0.15
+    ];
+
     useEffect(() => {
-        let myChart = echarts.init(divRef.current);
-        myChart.setOption(createEchartsOptions({
+        setInterval(() => {
+            const newData = [
+                Math.random()/10,Math.random()/10,Math.random()/10,Math.random()/10,
+                Math.random()/10,Math.random()/10,Math.random()/10,Math.random()/10,
+                Math.random()/10,Math.random()/10,Math.random()/10,Math.random()/10,
+                Math.random()/10,
+            ];
+            x(newData)
+        },1500);
+    });
+
+
+    const x = (data) => {
+        myChart.current.setOption(createEchartsOptions({
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
@@ -28,13 +49,7 @@ export const Chart4 =()=>{
             },
             series: [{
                 type: 'line',
-                data: [
-                    0.15, 0.13, 0.11,
-                    0.13, 0.14, 0.15,
-                    0.16, 0.18, 0.21,
-                    0.19, 0.17, 0.16,
-                    0.15
-                ],
+                data: data,
                 symbol: 'circle',
                 symbolSize: px(12),
                 lineStyle: {width: px(2)},
@@ -49,6 +64,12 @@ export const Chart4 =()=>{
                 }
             }]
         }));
+    };
+
+
+    useEffect(() => {
+        myChart.current = echarts.init(divRef.current);
+        x(data)
     }, []);
 
     return (
@@ -57,4 +78,4 @@ export const Chart4 =()=>{
             <div ref={divRef} className="chart"/>
         </div>
     );
-}
+};
